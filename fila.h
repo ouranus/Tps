@@ -56,6 +56,7 @@ void end_line(line *l) {
     ~fila(r);
   }
   l->begin = NULL;
+}
 
 int size(line *l) {
   pointer end = l->begin;
@@ -74,7 +75,7 @@ pointer first_in_line(line *l, key *k){
 
 pointer last_in_line(line *l, key *k){
   pointer last = l->begin;
-  if (l->begin == NULL) return NULL
+  if (l->begin == NULL) return NULL;
   while (last->next != NULL) last = last->next;
   *k = last->id;
   return last;
