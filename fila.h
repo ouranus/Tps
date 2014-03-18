@@ -7,10 +7,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
+#include <stddef.h>
 #define ERRO -1
 #define true 1
 #define false 0
-#include <stddef.h>
 #ifndef FILA_H_
 #define FILA_H_
 
@@ -48,6 +48,15 @@ void start_line(line *l){
   l->end = NULL;
 }
 
+void end_line(line *l) {
+  pointer end = l->begin;
+  while (end != NULL){
+    pointer r = end;
+    end = end->next;
+    ~fila(r);
+  }
+  l->begin = NULL;
+
 int size(line *l) {
   pointer end = l->begin;
   int size = 0;
@@ -58,20 +67,20 @@ int size(line *l) {
   return size;
 }
 
-pointer first_in_line(line *f, key *k){
-  if (f->begin != NULL) *k = f->begin->id;
-  return f->begin;
+pointer first_in_line(line *l, key *k){
+  if (l->begin != NULL) *k = l->begin->id;
+  return l->begin;
 }
 
-pointer last_in_line(line *f, key *k){
-  pointer last = f->begin;
-  if (f->begin == NULL) return NULL;
+pointer last_in_line(line *l, key *k){
+  pointer last = l->begin;
+  if (l->begin == NULL) return NULL
   while (last->next != NULL) last = last->next;
   *k = last->id;
   return last;
 }
 
-bool line_insert_item(body b, line *l) {
+bool line_insert_item(line *l, body b) {
   pointer n = (pointer) malloc(sizeof(body));
   *n = b;
   n->next = NULL;
